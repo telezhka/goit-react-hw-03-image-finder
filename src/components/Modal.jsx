@@ -1,6 +1,6 @@
 // import React from 'react';
 import * as basicLightbox from 'basiclightbox';
-export const Modal = ({ largeImageURL, tags }) => {
+export const Modal = ({ largeImageURL, tags, event }) => {
   const content = `
     <div class="overlay">
       <div class="modal">

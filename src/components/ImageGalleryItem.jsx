@@ -1,12 +1,12 @@
 import React from 'react';
 import { Modal } from './Modal';
 export const ImageGalleryItem = ({ id, webformatURL, largeImageURL, tags }) => {
+  const handleClick = event => {
+    event.preventDefault();
+    Modal({ largeImageURL, tags });
+  };
   return (
-    <a
-      href="#"
-      className="opener"
-      onClick={() => Modal({ largeImageURL, tags })}
-    >
+    <a href="" className="opener" onClick={handleClick}>
       <li key={id}>
         <img src={webformatURL} alt={tags} />
       </li>
