@@ -6,7 +6,7 @@ export const ImageGalleryItem = ({ id, webformatURL, largeImageURL, tags }) => {
     Modal({ largeImageURL, tags });
   };
   return (
-    <a href="" className="opener" onClick={handleClick}>
+    <a href="./index.html" className="opener" onClick={handleClick}>
       <li key={id}>
         <img src={webformatURL} alt={tags} />
       </li>
