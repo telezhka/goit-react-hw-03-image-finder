@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const SearchForm = ({ handleChange, handleSubmit, inputValue }) => {
   return (
@@ -25,4 +26,9 @@ export const SearchForm = ({ handleChange, handleSubmit, inputValue }) => {
       </form>
     </header>
   );
+};
+SearchForm.propTypes = {
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  inputValue: PropTypes.string,
 };

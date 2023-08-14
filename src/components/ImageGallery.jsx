@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageGalleryItem } from './ImageGalleryItem';
-
+import PropTypes from 'prop-types';
 export const ImageGallery = ({ pictures }) => (
   <ul className="list">
     {pictures.map(({ id, webformatURL, largeImageURL, tags }) => (
@@ -14,3 +14,6 @@ export const ImageGallery = ({ pictures }) => (
     ))}
   </ul>
 );
+ImageGallery.propTypes = {
+  pictures: PropTypes.array,
+};

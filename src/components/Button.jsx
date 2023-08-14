@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 export const Button = ({ onClick, hasImages }) => {
   return (
     hasImages && (
@@ -15,4 +16,8 @@ export const Button = ({ onClick, hasImages }) => {
       </button>
     )
   );
+};
+Button.propTypes = {
+  onClick: PropTypes.func,
+  hasImages: PropTypes.bool,
 };

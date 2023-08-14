@@ -1,9 +1,10 @@
 import React from 'react';
-import { openModal } from './Modal';
+import { Modal } from './Modal';
+import PropTypes from 'prop-types';
 export const ImageGalleryItem = ({ id, webformatURL, largeImageURL, tags }) => {
   const handleClick = event => {
     event.preventDefault();
-    openModal({ largeImageURL, tags });
+    Modal({ largeImageURL, tags });
   };
   return (
     <a href="./index.html" className="opener" onClick={handleClick}>
@@ -12,4 +13,10 @@ export const ImageGalleryItem = ({ id, webformatURL, largeImageURL, tags }) => {
       </li>
     </a>
   );
+};
+ImageGalleryItem.propTypes = {
+  id: PropTypes.number,
+  webformatURL: PropTypes.string,
+  largeImageURL: PropTypes.string,
+  tags: PropTypes.string,
 };
