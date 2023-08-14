@@ -1,18 +1,25 @@
-// import React from 'react';
 import * as basicLightbox from 'basiclightbox';
-export const Modal = ({ largeImageURL, tags, event }) => {
+
+let lightboxInstance = null; // Додано змінну для зберігання інстансу
+
+export const openModal = ({ largeImageURL, tags }) => {
+  const onClose = e => {
+    e.preventDefault();
+    // lightboxInstance.close();
+    console.log(1);
+  };
   const content = `
-  <div class="backdrop"></div>
+    <div class="backdrop">
     <div class="overlay">
       <div class="modal">
-        <img src="${largeImageURL}" alt="${tags}" />
+      <a href="" onClick="${onClose}">
+        <img src="${largeImageURL}" alt="${tags}"/>
+        </a>
       </div>
     </div>
-  </div>  
+    </div>
   `;
-  //   console.log(1);
-  const lightbox = basicLightbox.create(content);
 
-  //   const lightbox = basicLightbox.show(content);
-  return lightbox.show();
+  lightboxInstance = basicLightbox.create(content); // Записуємо інстанс
+  lightboxInstance.show();
 };

@@ -22,18 +22,15 @@ li {
   gap: 30px;
   justify-content: center;
 }
-/* Стилі для затемненого заднього фону */
 .backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Півпрозорий чорний колір */
-  z-index: 1000; /* Вищий z-index для затемнення над іншим вмістом */
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
 }
-
-/* Стилі для контейнера модального вікна */
 .overlay {
   position: fixed;
   top: 0;
@@ -43,15 +40,14 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1001; /* Ще вищий z-index, щоб модальне вікно було над затемненням */
+  z-index: 1001;
 }
 
-/* Стилі для самого модального вікна */
 .modal {
-  max-width: 90%; /* Максимальна ширина вікна */
-  max-height: 90%; /* Максимальна висота вікна */
-  overflow: auto; /* Прокручування в разі необхідності */
-  background-color: #fff; /* Колір фону вікна */
-  padding: 20px; /* Внутрішній відступ для контенту */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Тінь для вікна */
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
