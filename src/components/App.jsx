@@ -16,24 +16,45 @@ export class App extends Component {
     this.setState({ inputValue: e.target.value });
   };
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    console.log(`Signed up as: ${this.state.inputValue}`);
-    // Проп, який передається формі для виклику під час сабміту
-    // this.props.onSubmit({ ...this.state });
-  };
+  // handleSubmit = evt => {
+  //   evt.preventDefault();
+  //   console.log(`Signed up as: ${this.state.inputValue}`);
+  //   // Проп, який передається формі для виклику під час сабміту
+  //   // this.props.onSubmit({ ...this.state });
+  // };
 
-  async componentDidMount() {
+  // async componentDidUpdate() {
+  //   this.setState({ isLoading: true });
+  //   const response = await axios.get(
+  //     `?q=${this.search}&page=1&key=37812301-bb78e35e415e6149d67a423b2&image_type=photo&orientation=horizontal&per_page=12`
+  //   );
+  //   this.setState({
+  //     pictures: response.data.hits,
+  //     isLoading: false,
+  //   });
+  //   console.log(response);
+  // }
+  handleSubmit = async evt => {
+    evt.preventDefault();
+    console.log(`Search query: ${this.state.inputValue}`);
+
     this.setState({ isLoading: true });
-    const response = await axios.get(
-      `?q=${this.search}&page=1&key=37812301-bb78e35e415e6149d67a423b2&image_type=photo&orientation=horizontal&per_page=12`
-    );
-    this.setState({
-      pictures: response.data.hits,
-      isLoading: false,
-    });
-    console.log(response);
-  }
+
+    try {
+      const response = await axios.get(
+        `?q=${this.state.inputValue}&page=1&key=37812301-bb78e35e415e6149d67a423b2&image_type=photo&orientation=horizontal&per_page=12`
+      );
+
+      this.setState({
+        pictures: response.data.hits,
+        isLoading: false,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      this.setState({ isLoading: false });
+    }
+  };
 
   render() {
     const { pictures, isLoading, inputValue } = this.state;
