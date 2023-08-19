@@ -12,11 +12,8 @@ export class App extends Component {
     isLoading: false,
     inputValue: '',
     page: 1,
+    total: 0,
   };
-
-  // handleChange = e => {
-  //   this.setState({ inputValue: e.target.value });
-  // };
   handleSubmit = submittedValue => {
     console.log('Значення, передане з дитячого компонента:', submittedValue);
     this.setState({ inputValue: submittedValue });
@@ -32,6 +29,7 @@ export class App extends Component {
 
         this.setState({
           pictures: response.data.hits,
+          total: response.data.totalHits,
           isLoading: false,
         });
         console.log(response);
@@ -53,6 +51,7 @@ export class App extends Component {
           isLoading: false,
         }));
         // console.log(response);
+        console.log(this.state.total);
       } catch (error) {
         console.error('Error fetching data:', error);
         this.setState({ isLoading: false });
@@ -64,8 +63,11 @@ export class App extends Component {
     console.log(this.state.page);
   };
   render() {
-    const { pictures, isLoading } = this.state;
+    const { pictures, isLoading, page } = this.state;
     const hasImages = pictures.length > 0;
+    const totalPagesUnrounded = this.state.total / 12;
+    const totalPages = Math.ceil(totalPagesUnrounded);
+    const isLastPage = page >= totalPages;
     return (
       <div
         style={{
@@ -93,7 +95,11 @@ export class App extends Component {
         ) : (
           <ImageGallery pictures={pictures} />
         )}
-        <Button onClick={this.loadMoreImages} hasImages={hasImages} />
+        <Button
+          onClick={this.loadMoreImages}
+          hasImages={hasImages}
+          isLastPage={isLastPage}
+        />
       </div>
     );
   }
