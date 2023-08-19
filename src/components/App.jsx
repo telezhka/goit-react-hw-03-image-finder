@@ -51,7 +51,6 @@ export class App extends Component {
           isLoading: false,
         }));
         // console.log(response);
-        console.log(this.state.total);
       } catch (error) {
         console.error('Error fetching data:', error);
         this.setState({ isLoading: false });
@@ -95,11 +94,15 @@ export class App extends Component {
         ) : (
           <ImageGallery pictures={pictures} />
         )}
-        <Button
-          onClick={this.loadMoreImages}
-          hasImages={hasImages}
-          isLastPage={isLastPage}
-        />
+        {!isLastPage ? (
+          hasImages ? (
+            <Button
+              onClick={this.loadMoreImages}
+              // hasImages={hasImages}
+              // isLastPage={isLastPage}
+            />
+          ) : null
+        ) : null}
       </div>
     );
   }
