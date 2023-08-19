@@ -14,30 +14,33 @@ export class App extends Component {
     page: 1,
   };
 
-  handleChange = e => {
-    this.setState({ inputValue: e.target.value });
+  // handleChange = e => {
+  //   this.setState({ inputValue: e.target.value });
+  // };
+  handleSubmit = submittedValue => {
+    console.log('Значення, передане з дитячого компонента:', submittedValue);
+    this.setState({ inputValue: submittedValue });
   };
-  handleSubmit = async evt => {
-    evt.preventDefault();
-    console.log(`Search query: ${this.state.inputValue}`);
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.inputValue !== this.state.inputValue) {
+      this.setState({ isLoading: true });
 
-    this.setState({ isLoading: true });
+      try {
+        const response = await axios.get(
+          `?q=${this.state.inputValue}&page=1&key=37812301-bb78e35e415e6149d67a423b2&image_type=photo&orientation=horizontal&per_page=12`
+        );
 
-    try {
-      const response = await axios.get(
-        `?q=${this.state.inputValue}&page=1&key=37812301-bb78e35e415e6149d67a423b2&image_type=photo&orientation=horizontal&per_page=12`
-      );
-
-      this.setState({
-        pictures: response.data.hits,
-        isLoading: false,
-      });
-      console.log(response);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      this.setState({ isLoading: false });
+        this.setState({
+          pictures: response.data.hits,
+          isLoading: false,
+        });
+        console.log(response);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        this.setState({ isLoading: false });
+      }
     }
-  };
+  }
   loadMoreImages = async evt => {
     // evt.preventDefault();
     const { inputValue, page } = this.state;
@@ -63,7 +66,7 @@ export class App extends Component {
     }
   };
   render() {
-    const { pictures, isLoading, inputValue } = this.state;
+    const { pictures, isLoading } = this.state;
     const hasImages = pictures.length > 0;
     return (
       <div
@@ -75,13 +78,7 @@ export class App extends Component {
           color: '#010101',
         }}
       >
-        {
-          <SearchForm
-            inputValue={inputValue}
-            handleSubmit={this.handleSubmit}
-            handleChange={this.handleChange}
-          ></SearchForm>
-        }
+        {<SearchForm onFormSubmit={this.handleSubmit}></SearchForm>}
         {isLoading ? (
           <CirclesWithBar
             height="100"
