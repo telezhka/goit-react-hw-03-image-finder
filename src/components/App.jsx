@@ -39,31 +39,29 @@ export class App extends Component {
         console.error('Error fetching data:', error);
         this.setState({ isLoading: false });
       }
+    } else if (prevState.page !== this.state.page) {
+      const { inputValue, page } = this.state;
+
+      this.setState({ isLoading: true });
+
+      try {
+        const response = await axios.get(
+          `?q=${inputValue}&page=${page}&key=37812301-bb78e35e415e6149d67a423b2&image_type=photo&orientation=horizontal&per_page=12`
+        );
+        this.setState(prevState => ({
+          pictures: [...prevState.pictures, ...response.data.hits],
+          isLoading: false,
+        }));
+        // console.log(response);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        this.setState({ isLoading: false });
+      }
     }
   }
-  loadMoreImages = async evt => {
-    // evt.preventDefault();
-    const { inputValue, page } = this.state;
-
-    this.setState({ isLoading: true });
-
-    try {
-      const response = await axios.get(
-        `?q=${inputValue}&page=${
-          page + 1
-        }&key=37812301-bb78e35e415e6149d67a423b2&image_type=photo&orientation=horizontal&per_page=12`
-      );
-      // evt.preventDefault();
-      this.setState(prevState => ({
-        pictures: [...prevState.pictures, ...response.data.hits],
-        isLoading: false,
-        page: prevState.page + 1,
-      }));
-      console.log(response);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      this.setState({ isLoading: false });
-    }
+  loadMoreImages = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+    console.log(this.state.page);
   };
   render() {
     const { pictures, isLoading } = this.state;
